@@ -1,44 +1,55 @@
-const { Router } = require("express");
+const express = require('express')
 const Message = require('./model')
+const Sse = require('json-sse')
 
-const router = new Router();
+const { Router } = express
+
+const stream = new Sse()
+
+const router = Router()
+
+// get on the stream
+router.get(
+  '/stream',
+  (request, response, next) => {
+    stream.updateInit('test')
+    stream.init(request, response)
+  }
+)
 
 router.get(
-  `/message`,
+  '/message',
   async function (
-    request,response,next
-  ){
-    try{
-      const messages = await Message
-        .findAll()
-
+    request, response, next
+  ) {
+    try {
+      const messages = await Message        .findAll()
+      
       response.send(messages)
-    } catch(error){
+    } catch (error) {
       next(error)
     }
   }
 )
 
 router.post(
-  `/message`,
-  async function(request,response, next)
-  {
-    try{
-    const{body} = request
-    const{text} = body
-    const entity = {text}
+  '/message',
+  async function (
+    request, response, next
+  ) {
+    try {
+      const { body } = request
+      const { text } = body
+      const entity = { text }
+      const message = await Message
+        .create(entity)
 
-    const message = await Message.create(entity)
-
-    console.log(`request.body test`, body)
-    console.log(message.dataValues)
-    response.send(message);
-    }
-    catch(error){
+      console.log(mesage.dataValues)
+      response.send(message)
+    } catch (error) {
       next(error)
     }
-    
   }
 )
 
-module.exports = router;
+module.exports = router
