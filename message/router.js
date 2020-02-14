@@ -4,7 +4,7 @@ const Message = require('./model')
 const router = new Router();
 
 router.post(
-  `./message`,
+  `/message`,
   async function(request,response, next)
   {
     try{
