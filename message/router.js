@@ -16,8 +16,13 @@ router.get(
       const messages = await Message
         .findAll()
 
+      const action = {
+        type: 'MESSAGES',
+        payload: messages
+      }
+
       const json = JSON
-        .stringify(messages)
+        .stringify(action)
 
       stream.updateInit(json)
       stream.init(request, response)
@@ -39,8 +44,13 @@ router.post(
       const message = await Message
         .create(entity)
 
+      const action = {
+        type: 'MESSAGE',
+        payload: message
+      }
+
       const json = JSON
-        .stringify(message)
+        .stringify(action)
 
       stream.send(json)
 
