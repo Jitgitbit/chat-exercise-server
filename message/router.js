@@ -31,7 +31,7 @@ router.post(
     const message = await Message.create(entity)
 
     console.log(`request.body test`, body)
-    console.log(response.dataValues)
+    console.log(message.dataValues)
     response.send(message);
     }
     catch(error){
