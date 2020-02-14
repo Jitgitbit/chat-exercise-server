@@ -1,14 +1,11 @@
-const Sequelize = require("sequelize");
-const sequelize = require("../db");
+const db = require('../db')
+const Sequelize = require('sequelize')
 
-const Message = sequelize.define(
-  "message", {
-  text: {
-    type: Sequelize.STRING,
-  },
-});
+const Message = db.define(
+  'message',
+  {
+    text: Sequelize.STRING
+  }
+)
 
-// Event.belongsTo(User);
-// User.hasMany(Event);
-
-module.exports = Message;
+module.exports = Message
