@@ -3,7 +3,7 @@ const messageRouter = require('./message/router')
 
 const app = express()
 
-const port = 4000
+const port = process.env.PORT || 4000
   
 function onListen () {
   console.log(`listening on : ${port}`)
